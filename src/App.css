@@ -4,46 +4,65 @@
 }
 
 #contenitoreCalcolatrice {
-  display: flex;
-  flex-direction: column;
   width: 30%;
   background-color: rgb(117, 117, 117);
-  margin: 4% auto;
+  margin: 3% auto;
   padding: 20px;
+  border: 4px solid rgb(255, 3, 3);
+}
+
+#contenitoreValori {
+  display: flex;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .contenitoreRisultato {
   background-color: rgb(0, 0, 0);
   color: white;
-  height: 100px;
-  width: 90%;
-  padding: 20px;
+  width: 92%;
   font-size: 90px;
   text-align: end;
   font-family: "Bitcount Single", system-ui;
-  margin: 0 auto;
+  margin: 15px auto;
+  padding: 0px 20px;
 }
 
-.contenitoreOperandi {
+.contenitoreNumeri {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3,1fr);
   background-color: rgb(117, 117, 117);
-  height: 500px;
-  margin: 20px 0 40px 0;
 }
 
-.celleOperandi {
-  background-color: rgb(15, 15, 15);
+.contenitoreOperandi{
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  background-color: rgb(117, 117, 117);
+}
+
+.celle {
   margin: 10px;
   border-radius: 10px;
-  padding: 35px;
+  padding: 40px;
   font-size: 30px;
-  text-align: center;
 }
 
-.celleOperandi:hover{
+.numero {
+  background-color: rgb(15, 15, 15);
+}
+.operandi{
+  background-color: rgb(255, 119, 0);
+}
+.operandi:last-child{
+  background-color: red;
+}
+
+.celle:hover{
   background-color: red;
   color: white; 
   cursor: pointer;
+}
+
+.celle:active{
+  background-color: rgba(43, 43, 43, 0.973);
 }
