@@ -21,6 +21,7 @@
   background-color: rgb(0, 0, 0);
   color: white;
   width: 92%;
+  height: 100px;
   font-size: 90px;
   text-align: end;
   font-family: "Bitcount Single", system-ui;
@@ -52,9 +53,6 @@
 }
 .operandi{
   background-color: rgb(255, 119, 0);
-}
-.operandi:last-child{
-  background-color: red;
 }
 
 .celle:hover{
