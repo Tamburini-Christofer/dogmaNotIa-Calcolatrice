@@ -5,7 +5,7 @@ export default function Calcolatrice() {
   let [provNumber, setProvNumber] = useState(null)
   let [operation, setOperator] = useState(null)
 
-  let arrayNumber = ["1","2","3","4","5","6","7","8","9"];
+  let arrayNumber = ["1","2","3","4","5","6","7","8","9", "0"," ","."];
   let arraySymbols = ["x", "+", "/", "-", "%", "="]
 
   const handleClick = (e) => {
@@ -28,48 +28,50 @@ export default function Calcolatrice() {
 
       case "+":
       case "-":
-      case "*":
+      case "x":
       case "%":
       setProvNumber(number)
-      setNumber("")
       setOperator(getValue)
+      setNumber("")
       break;
 
       case ".":
-      if(number.includes(".")) setNumber(number + ".");
+      if(!number.includes(".")) setNumber(number + ".");
       break;
 
       case "=":
         const prev = parseFloat(provNumber);
         const curr = parseFloat(number);
-        const total=operation === "+" ? prev+curr :
-                    operation === "-" ? prev-curr :
-                    operation === "*" ? prev*curr :
-                    operation === "/" ? prev/curr :
-                    operation === "%" ? (prev / 100) * curr :
-                    curr;
+        const total= operation === "+" ? prev+curr :
+                     operation === "-" ? prev-curr :
+                     operation === "x" ? prev*curr :
+                     operation === "/" ? prev/curr :
+                     operation === "%" ? (prev / 100) * curr : curr
       setNumber(total)
       setProvNumber("")
       setOperator(null)
       break;
 
-      default:
+      case "clear":
       setNumber("")
+      setOperator(null)
+      setProvNumber(null)
+      break;
+
+      case "clearEntry": 
+      setNumber((number) => number === "" ? "0" : number.slice(0,-1))
+      break;
     }
   };
-
-  function deleteNumber () {
-    setNumber((number) => number === "" ? "0" : number.slice(0,-1))
-  }
-
-  function reset () {
-    setNumber((number) => number = "0")
-  }
 
   return (
     <>
       <div id="contenitoreCalcolatrice">
-        <div className="contenitoreRisultato">{number === "" ? "0" : number}</div>
+        <div className="contenitoreRisultato">
+          {provNumber}
+          {operation}
+          {number === "" ? "0" : number}
+          </div>
         <div id="contenitoreValori">
           <div className="contenitoreNumeri">
             {arrayNumber.map((n) => (
@@ -82,10 +84,10 @@ export default function Calcolatrice() {
                 {n}
               </button>
             ))}
-            <button className="celle numero" onClick={deleteNumber}> <i className="fa-solid fa-delete-left"></i> </button>
-            <button className="celle numero" onClick={reset}> CE </button>
           </div>
           <div className="contenitoreOperandi">
+            <button className="celle operandi" onClick={handleClick} value="clearEntry"> <i className="fa-solid fa-delete-left"></i> </button>
+            <button className="celle operandi" onClick={handleClick} value="clear" > CE </button>
             {arraySymbols.map((s) => (
               <button 
               key={s}
@@ -95,6 +97,7 @@ export default function Calcolatrice() {
               >
                 {s}
              </button>
+             
             ))}
           </div>
         </div>
