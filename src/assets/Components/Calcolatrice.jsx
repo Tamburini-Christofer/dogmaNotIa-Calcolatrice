@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 export default function Calcolatrice() {
-  let [number, setNumber] = useState("");
-  let [provNumber, setProvNumber] = useState(null)
+  let [valueInput, setvalueInput] = useState("");
+  let [valueInputSucc, setvalueInputSucc] = useState(null)
   let [operation, setOperator] = useState(null)
 
-  let arrayNumber = ["1","2","3","4","5","6","7","8","9", "0"," ","."];
+  let arrayvalueInput = ["1","2","3","4","5","6","7","8","9", "0"," ","."];
   let arraySymbols = ["x", "+", "/", "-", "%", "="]
 
   const handleClick = (e) => {
@@ -21,8 +21,8 @@ export default function Calcolatrice() {
       case "7":
       case "8":
       case "9":
-      setNumber(
-        number === "0" ? getValue : number + getValue
+      setvalueInput(
+        valueInput === "0" ? getValue : valueInput + getValue
       );
       break;
 
@@ -30,36 +30,37 @@ export default function Calcolatrice() {
       case "-":
       case "x":
       case "%":
-      setProvNumber(number)
+      case "/":
+      setvalueInputSucc(valueInput)
       setOperator(getValue)
-      setNumber("")
+      setvalueInput("")
       break;
 
       case ".":
-      if(!number.includes(".")) setNumber(number + ".");
+      if(!valueInput.includes(".")) setvalueInput(valueInput + ".");
       break;
 
       case "=":
-        const prev = parseFloat(provNumber);
-        const curr = parseFloat(number);
-        const total= operation === "+" ? prev+curr :
-                     operation === "-" ? prev-curr :
-                     operation === "x" ? prev*curr :
-                     operation === "/" ? prev/curr :
+        const prev = parseFloat(valueInputSucc);
+        const curr = parseFloat(valueInput);
+        const total= operation === "+" ? prev + curr :
+                     operation === "-" ? prev - curr :
+                     operation === "x" ? prev * curr :
+                     operation === "/" ? prev / curr :
                      operation === "%" ? (prev / 100) * curr : curr
-      setNumber(total)
-      setProvNumber("")
+      setvalueInput(total)
+      setvalueInputSucc("")
       setOperator(null)
       break;
 
       case "clear":
-      setNumber("")
+      setvalueInput("")
       setOperator(null)
-      setProvNumber(null)
+      setvalueInputSucc(null)
       break;
 
       case "clearEntry": 
-      setNumber((number) => number === "" ? "0" : number.slice(0,-1))
+      setvalueInput((valueInput) => valueInput === "" ? "0" : valueInput.slice(0,-1))
       break;
     }
   };
@@ -68,13 +69,13 @@ export default function Calcolatrice() {
     <>
       <div id="contenitoreCalcolatrice">
         <div className="contenitoreRisultato">
-          {provNumber}
-          {operation}
-          {number === "" ? "0" : number}
+          {valueInputSucc} <br />
+          {operation} <br />
+          {valueInput === "" ? "0" : valueInput}
           </div>
         <div id="contenitoreValori">
           <div className="contenitoreNumeri">
-            {arrayNumber.map((n) => (
+            {arrayvalueInput.map((n) => (
               <button
                 key={n}
                 value={n}
@@ -117,11 +118,5 @@ export default function Calcolatrice() {
 //* Ho creato delle condizioni per far sparire lo zero all'inizio tramite il metodo slice 
 //* Ora, quando utilizzero gli operatori aritmetici, la stringa verrà trasformata in un numero e archiviata per poi essere eseguita al tasto =
 
-//!Esempio di logica: 
-//! Digito 64 come stringa
-//! Seleziono uno degli operatori 
-//! 64 viene archiviato in un array e l'operatore pushato insieme
-//! Digito 98 come stringa
-//! Seleziono uno degli operatori 
-//! Lo stato deve variare con l'operazione in tempo reale. 
+
 

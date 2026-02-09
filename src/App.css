@@ -15,9 +15,8 @@
 
 #contenitoreCalcolatrice {
   position: absolute;
-  top: 7%;
-  left: 4%;
-  width: 20%;
+  top: 6%;
+  left: 30%;
   background-color: rgba(37, 37, 37, 0.829);
   padding: 20px;
   border-radius: 10px;
@@ -25,7 +24,6 @@
 
 #contenitoreValori {
   display: flex;
-  justify-content: center;
 }
 
 .contenitoreRisultato {
@@ -34,8 +32,9 @@
   font-size: 50px;
   text-align: end;
   font-family: "Bitcount Single", system-ui;
-  margin: 15px auto;
-  padding: 0px 20px;
+  margin: 15px 0px;
+  padding: 10px 20px;
+  line-height: 50px;
 }
 
 .contenitoreNumeri {
@@ -52,16 +51,19 @@
 .celle {
   margin: 2px;
   border-radius: 10px;
-  padding: 0 20px;
-  font-size: 16px;
+  font-size: 24px;
+  padding: 50px 50px;
 }
 
 .numero {
   background-color: rgba(109, 109, 109, 0.839);
-  padding: 20px 20px;
 }
 
 .operandi{
+  background-color: rgba(0, 0, 0, 0.503);
+}
+
+.operandi:last-child{
   background-color: rgba(255, 119, 0, 0.849);
 }
 
