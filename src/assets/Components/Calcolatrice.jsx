@@ -2,21 +2,61 @@ import { useState } from "react";
 
 export default function Calcolatrice() {
   let [number, setNumber] = useState("");
+  let [provNumber, setProvNumber] = useState(null)
+  let [operation, setOperator] = useState(null)
 
-  const arrayNumber = [
-    { name: "1", value: 1 },
-    { name: "2", value: 2 },
-    { name: "3", value: 3 },
-    { name: "4", value: 4 },
-    { name: "5", value: 5 },
-    { name: "6", value: 6 },
-    { name: "7", value: 7 },
-    { name: "8", value: 8 },
-    { name: "9", value: 9 },
-    { name: "0", value: 0 },
-  ];
+  let arrayNumber = ["1","2","3","4","5","6","7","8","9"];
+  let arraySymbols = ["x", "+", "/", "-", "%", "="]
 
-  let firstValue = "";
+  const handleClick = (e) => {
+    const getValue = e.currentTarget.value;
+    switch(getValue) {
+      case "0":
+      case "1":
+      case "2":
+      case "3":
+      case "4":
+      case "5":
+      case "6":
+      case "7":
+      case "8":
+      case "9":
+      setNumber(
+        number === "0" ? getValue : number + getValue
+      );
+      break;
+
+      case "+":
+      case "-":
+      case "*":
+      case "%":
+      setProvNumber(number)
+      setNumber("")
+      setOperator(getValue)
+      break;
+
+      case ".":
+      if(number.includes(".")) setNumber(number + ".");
+      break;
+
+      case "=":
+        const prev = parseFloat(provNumber);
+        const curr = parseFloat(number);
+        const total=operation === "+" ? prev+curr :
+                    operation === "-" ? prev-curr :
+                    operation === "*" ? prev*curr :
+                    operation === "/" ? prev/curr :
+                    operation === "%" ? (prev / 100) * curr :
+                    curr;
+      setNumber(total)
+      setProvNumber("")
+      setOperator(null)
+      break;
+
+      default:
+      setNumber("")
+    }
+  };
 
   function deleteNumber () {
     setNumber((number) => number === "" ? "0" : number.slice(0,-1))
@@ -25,7 +65,7 @@ export default function Calcolatrice() {
   function reset () {
     setNumber((number) => number = "0")
   }
-  console.log(`Il valore di ${firstValue}`)
+
   return (
     <>
       <div id="contenitoreCalcolatrice">
@@ -34,21 +74,28 @@ export default function Calcolatrice() {
           <div className="contenitoreNumeri">
             {arrayNumber.map((n) => (
               <button
-                key={n.value}
+                key={n}
+                value={n}
                 className="celle numero"
-                onClick={() => setNumber((number) => number + n.name)}
+                onClick={handleClick}
               >
-                {n.name}
+                {n}
               </button>
             ))}
             <button className="celle numero" onClick={deleteNumber}> <i className="fa-solid fa-delete-left"></i> </button>
             <button className="celle numero" onClick={reset}> CE </button>
           </div>
           <div className="contenitoreOperandi">
-              <button className="celle operandi">X</button>
-              <button className="celle operandi">-</button>
-              <button className="celle operandi">+</button>
-              <button className="celle operandi">=</button>
+            {arraySymbols.map((s) => (
+              <button 
+              key={s}
+              value={s}
+              className="celle operandi"
+              onClick={handleClick}
+              >
+                {s}
+             </button>
+            ))}
           </div>
         </div>
       </div>
