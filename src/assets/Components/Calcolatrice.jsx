@@ -118,5 +118,16 @@ export default function Calcolatrice() {
 //* Ho creato delle condizioni per far sparire lo zero all'inizio tramite il metodo slice 
 //* Ora, quando utilizzero gli operatori aritmetici, la stringa verrà trasformata in un numero e archiviata per poi essere eseguita al tasto =
 
+//* Ho trovato una guida e l'ho seguita per capire gestire gli stati. 
+//* Ho integrato tutti gli stati seguendo un pò la logica e la guida. 
+
+//todo In questo momento la mia calcolatrice è in grado di fare calcoli semplici. 
+
+//todo Vorrei integrare:
+// La possibilità di fare calcoli + complessi
+// Una pulizia del codice
+// La possibilità di vedere le operazioni a console
+// La possibilità di tenere una cronologia delle operazioni
+
 
 
