@@ -1,16 +1,29 @@
 import { useState } from "react";
 
 export default function Calcolatrice() {
-  let [valueInput, setvalueInput] = useState("");
-  let [valueInputSucc, setvalueInputSucc] = useState(null)
-  let [operation, setOperator] = useState(null)
+  let [number, setnumber] = useState("");
+  let [numberSucc, setnumberSucc] = useState(null);
+  let [operator, setOperator] = useState(null);
 
-  let arrayvalueInput = ["1","2","3","4","5","6","7","8","9", "0"," ","."];
-  let arraySymbols = ["x", "+", "/", "-", "%", "="]
+  let arraynumber = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    " ",
+    ".",
+  ];
+  let arraySymbols = ["x", "+", "/", "-", "%", "="];
 
   const handleClick = (e) => {
     const getValue = e.currentTarget.value;
-    switch(getValue) {
+    switch (getValue) {
       case "0":
       case "1":
       case "2":
@@ -21,47 +34,52 @@ export default function Calcolatrice() {
       case "7":
       case "8":
       case "9":
-      setvalueInput(
-        valueInput === "0" ? getValue : valueInput + getValue
-      );
-      break;
+        setnumber(number === "0" ? getValue : number + getValue);
+        break;
 
       case "+":
       case "-":
       case "x":
       case "%":
       case "/":
-      setvalueInputSucc(valueInput)
-      setOperator(getValue)
-      setvalueInput("")
-      break;
+        setnumberSucc(number);
+        setOperator(getValue);
+        setnumber("0");
+        break;
 
       case ".":
-      if(!valueInput.includes(".")) setvalueInput(valueInput + ".");
-      break;
+        if (!number.includes(".")) setnumber(number + ".");
+        break;
 
       case "=":
-        const prev = parseFloat(valueInputSucc);
-        const curr = parseFloat(valueInput);
-        const total= operation === "+" ? prev + curr :
-                     operation === "-" ? prev - curr :
-                     operation === "x" ? prev * curr :
-                     operation === "/" ? prev / curr :
-                     operation === "%" ? (prev / 100) * curr : curr
-      setvalueInput(total)
-      setvalueInputSucc("")
-      setOperator(null)
-      break;
+        const prev = parseFloat(numberSucc);
+        const curr = parseFloat(number);
+        const total =
+          operator === "+"
+            ? prev + curr
+            : operator === "-"
+              ? prev - curr
+              : operator === "x"
+                ? prev * curr
+                : operator === "/"
+                  ? prev / curr
+                  : operator === "%"
+                    ? (prev / 100) * curr
+                    : curr;
+        setnumber(total);
+        setnumberSucc("");
+        setOperator(null);
+        break;
 
       case "clear":
-      setvalueInput("")
-      setOperator(null)
-      setvalueInputSucc(null)
-      break;
+        setnumber("");
+        setOperator(null);
+        setnumberSucc(null);
+        break;
 
-      case "clearEntry": 
-      setvalueInput((valueInput) => valueInput === "" ? "0" : valueInput.slice(0,-1))
-      break;
+      case "clearEntry":
+        setnumber((number) => (number === "" ? "0" : number.slice(0, -1)));
+        break;
     }
   };
 
@@ -69,13 +87,13 @@ export default function Calcolatrice() {
     <>
       <div id="contenitoreCalcolatrice">
         <div className="contenitoreRisultato">
-          {valueInputSucc} <br />
-          {operation} <br />
-          {valueInput === "" ? "0" : valueInput}
-          </div>
+          {numberSucc} 
+          {operator} 
+          {number === "" ? "0" : number}
+        </div>
         <div id="contenitoreValori">
           <div className="contenitoreNumeri">
-            {arrayvalueInput.map((n) => (
+            {arraynumber.map((n) => (
               <button
                 key={n}
                 value={n}
@@ -87,18 +105,31 @@ export default function Calcolatrice() {
             ))}
           </div>
           <div className="contenitoreOperandi">
-            <button className="celle operandi" onClick={handleClick} value="clearEntry"> <i className="fa-solid fa-delete-left"></i> </button>
-            <button className="celle operandi" onClick={handleClick} value="clear" > CE </button>
-            {arraySymbols.map((s) => (
-              <button 
-              key={s}
-              value={s}
+            <button
               className="celle operandi"
               onClick={handleClick}
+              value="clearEntry"
+            >
+              {" "}
+              <i className="fa-solid fa-delete-left"></i>{" "}
+            </button>
+            <button
+              className="celle operandi"
+              onClick={handleClick}
+              value="clear"
+            >
+              {" "}
+              CE{" "}
+            </button>
+            {arraySymbols.map((s) => (
+              <button
+                key={s}
+                value={s}
+                className="celle operandi"
+                onClick={handleClick}
               >
                 {s}
-             </button>
-             
+              </button>
             ))}
           </div>
         </div>
@@ -107,27 +138,23 @@ export default function Calcolatrice() {
   );
 }
 
-
 //* Ho deciso di utilizzare la dicitura alternativa a quella che usavo di solito
 //* Ho deciso di mappare in modo da non usare file ripetuto
 //* Creazione dello state e assegnazione valore iniziale al contenitore del risultato che sarà 0 inizialmente
 
 //* L'idea iniziale è quella di aggiungere come stringa i vari numeri da poter usare nell'operazione successiva, poichè se avessi mantenuto
-//* il valore numerico ci sarebbe stato un'aggiornamento dello stato e sostituzione di quello precedente. 
+//* il valore numerico ci sarebbe stato un'aggiornamento dello stato e sostituzione di quello precedente.
 
-//* Ho creato delle condizioni per far sparire lo zero all'inizio tramite il metodo slice 
+//* Ho creato delle condizioni per far sparire lo zero all'inizio tramite il metodo slice
 //* Ora, quando utilizzero gli operatori aritmetici, la stringa verrà trasformata in un numero e archiviata per poi essere eseguita al tasto =
 
-//* Ho trovato una guida e l'ho seguita per capire gestire gli stati. 
-//* Ho integrato tutti gli stati seguendo un pò la logica e la guida. 
+//* Ho trovato una guida e l'ho seguita per capire gestire gli stati.
+//* Ho integrato tutti gli stati seguendo un pò la logica e la guida.
 
-//todo In questo momento la mia calcolatrice è in grado di fare calcoli semplici. 
+//todo In questo momento la mia calcolatrice è in grado di fare calcoli semplici.
 
 //todo Vorrei integrare:
 // La possibilità di fare calcoli + complessi
 // Una pulizia del codice
 // La possibilità di vedere le operazioni a console
 // La possibilità di tenere una cronologia delle operazioni
-
-
-

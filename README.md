@@ -2,6 +2,8 @@
 
 ###
 
+![Immagine completa](/Completato.png)
+
 <p align="left">I DogmaNotIa sono progetti personali per l'apprendimento. <br><br>All'interno di tali progetti, l'uso dell'Ia è totalmente vietato, che sia di "compilazione" che di "aiuto nel risolvere un problema". <br><br>E' consentito l'uso di documentazioni esterne e risorse trovate online. <br><br>Il tempo di realizzazione di tale progetto è soggettivo e non vuole, o deve, essere messo a paragone per valutare il mio livello d'apprendimento. <br><br>Qui si sbaglia, si migliora e si risbaglia, perchè a questo servono questi esercizi. <br><br>Gli esercizi daranno importanza sia all'aspetto estetico che funzionale.</p>
 
 ###
